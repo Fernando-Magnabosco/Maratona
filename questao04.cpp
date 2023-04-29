@@ -1,32 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+// generate |n-1| subsets and test their sum
+int isSubsetSum(vector<int> set, int n, int sum)
+{
+    if (isSubsetSum(set, n - 1, sum) == sum)
+        return 1;
+}
+
 int main()
 {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    unsigned long long int entrada, count;
-    vector<int> valores, saida;
-    /*ENTRADA = 2 3 7 8 11
-    ULTILMO ELEMENTO DA ENTRADA EH O VALOR FORNESCIDO PELO USUARIO PARA A SOMA, OS DEMAIS CONSTITUEM
-    O VETOR DE NUMEROS*/
+    int a, n;
+    vector<int> valores;
 
-    while (cin >> entrada)
-    {
-        valores.push_back(entrada);
-    }
+    cin >> n;
+    while (cin >> a)
+        valores.push_back(a);
 
-    for (auto it = valores.begin(); it < valores.end() - 1; ++it)
+    for (int i = 0; i < pow(2, valores.size()); i++)
     {
-        for (auto itt = valores.begin() + 1; itt < valores.end() - 1; ++itt)
+        int sum = 0;
+        for (int j = 0; j < valores.size(); j++)
+            if (i & (int)pow(2, j))
+                sum += valores[j];
+
+        if (sum == n)
         {
-            if (*it + *itt == *(valores.end() - 1))
-            {
-                cout << "SIM";
-                return 0;
-            }
+            cout << "SIM\n";
+            return 0;
         }
     }
-    cout << "NAO";
+    cout << "NAO\n";
+
     return 0;
 }
